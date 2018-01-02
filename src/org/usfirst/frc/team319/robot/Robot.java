@@ -8,10 +8,15 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import java.util.List;
+import static java.util.Arrays.asList;
+
 import org.usfirst.frc.team319.oi.OI;
 import org.usfirst.frc.team319.robot.commands.BobDriveCommand;
 import org.usfirst.frc.team319.robot.commands.DefaultAutoCommand;
 import org.usfirst.frc.team319.robot.subsystems.Drivetrain;
+
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,8 +26,11 @@ import org.usfirst.frc.team319.robot.subsystems.Drivetrain;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	
+	public static final List<TalonSRX> leftFollowers = asList(RobotMap.drivetrainLeftFollow0, RobotMap.drivetrainLeftFollow1, RobotMap.drivetrainLeftFollow2);
+	public static final List<TalonSRX> rightFollowers = asList(RobotMap.drivetrainRightFollow0, RobotMap.drivetrainRightFollow1, RobotMap.drivetrainRightFollow2);
 
-	public static final Drivetrain drivetrain = new Drivetrain(RobotMap.drivetrainLeftLead, RobotMap.drivetrainRightLead);
+	public static final Drivetrain drivetrain = new Drivetrain(RobotMap.drivetrainLeftLead, RobotMap.drivetrainRightLead, leftFollowers, rightFollowers);
 	public static OI oi;
 
 	Command autonomousCommand;
@@ -35,6 +43,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
+		
+		RobotMap.drivetrainLeftFollow0.follow(RobotMap.drivetrainLeftLead);
+		RobotMap.drivetrainRightFollow0.follow(RobotMap.drivetrainRightLead);
+		
 		chooser.addDefault("Default Auto", new DefaultAutoCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);

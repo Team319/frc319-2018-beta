@@ -21,13 +21,21 @@ public class RobotMap {
 	
     public static TalonSRX drivetrainLeftLead;
     public static TalonSRX drivetrainRightLead;
-    public static TalonSRX drivetrainLeftFollow;
-    public static TalonSRX drivetrainRightFollow;
+    public static TalonSRX drivetrainLeftFollow0;
+    public static TalonSRX drivetrainRightFollow0;
+    public static TalonSRX drivetrainLeftFollow1;
+    public static TalonSRX drivetrainRightFollow1;
+    public static TalonSRX drivetrainLeftFollow2;
+    public static TalonSRX drivetrainRightFollow2;
     
     public RobotMap() {
 		drivetrainLeftLead = new TalonSRX(0);
 		drivetrainRightLead = new TalonSRX(1);
-		drivetrainLeftFollow = new TalonSRX(2);
-		drivetrainRightFollow = new TalonSRX(3);		
+		drivetrainLeftFollow0 = new TalonSRX(2);
+		drivetrainRightFollow0 = new TalonSRX(3);
+		drivetrainLeftFollow1 = new TalonSRX(2);
+		drivetrainRightFollow1 = new TalonSRX(3);		
+		drivetrainLeftFollow2 = new TalonSRX(2);
+		drivetrainRightFollow2 = new TalonSRX(3);		
 	}
 }
