@@ -46,6 +46,10 @@ public class Robot extends IterativeRobot {
 		
 		RobotMap.drivetrainLeftFollow0.follow(RobotMap.drivetrainLeftLead);
 		RobotMap.drivetrainRightFollow0.follow(RobotMap.drivetrainRightLead);
+		RobotMap.drivetrainLeftFollow1.follow(RobotMap.drivetrainLeftLead);
+		RobotMap.drivetrainRightFollow1.follow(RobotMap.drivetrainRightLead);
+		RobotMap.drivetrainLeftFollow2.follow(RobotMap.drivetrainLeftLead);
+		RobotMap.drivetrainRightFollow2.follow(RobotMap.drivetrainRightLead);
 		
 		chooser.addDefault("Default Auto", new DefaultAutoCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
