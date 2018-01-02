@@ -12,7 +12,6 @@ import java.util.List;
 import static java.util.Arrays.asList;
 
 import org.usfirst.frc.team319.oi.OI;
-import org.usfirst.frc.team319.robot.commands.BobDriveCommand;
 import org.usfirst.frc.team319.robot.commands.DefaultAutoCommand;
 import org.usfirst.frc.team319.robot.subsystems.Drivetrain;
 
@@ -26,11 +25,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	
-	public static final List<TalonSRX> leftFollowers = asList(RobotMap.drivetrainLeftFollow0, RobotMap.drivetrainLeftFollow1, RobotMap.drivetrainLeftFollow2);
-	public static final List<TalonSRX> rightFollowers = asList(RobotMap.drivetrainRightFollow0, RobotMap.drivetrainRightFollow1, RobotMap.drivetrainRightFollow2);
-
-	public static final Drivetrain drivetrain = new Drivetrain(RobotMap.drivetrainLeftLead, RobotMap.drivetrainRightLead, leftFollowers, rightFollowers);
+	public static final Drivetrain drivetrain = new Drivetrain(RobotMap.drivetrainLeftLead, RobotMap.drivetrainRightLead, RobotMap.drivetrainLeftFollowers, RobotMap.drivetrainRightFollowers);
 	public static OI oi;
 
 	Command autonomousCommand;
@@ -44,12 +39,13 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		
-		RobotMap.drivetrainLeftFollow0.follow(RobotMap.drivetrainLeftLead);
-		RobotMap.drivetrainRightFollow0.follow(RobotMap.drivetrainRightLead);
-		RobotMap.drivetrainLeftFollow1.follow(RobotMap.drivetrainLeftLead);
-		RobotMap.drivetrainRightFollow1.follow(RobotMap.drivetrainRightLead);
-		RobotMap.drivetrainLeftFollow2.follow(RobotMap.drivetrainLeftLead);
-		RobotMap.drivetrainRightFollow2.follow(RobotMap.drivetrainRightLead);
+		for (TalonSRX talonSRX : RobotMap.drivetrainLeftFollowers) {
+			talonSRX.follow(RobotMap.drivetrainLeftLead);
+		}
+		
+		for (TalonSRX talonSRX : RobotMap.drivetrainRightFollowers) {
+			talonSRX.follow(RobotMap.drivetrainRightLead);
+		}
 		
 		chooser.addDefault("Default Auto", new DefaultAutoCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());

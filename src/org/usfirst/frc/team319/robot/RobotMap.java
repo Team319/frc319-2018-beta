@@ -1,5 +1,7 @@
 package org.usfirst.frc.team319.robot;
 
+import java.util.List;
+
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 /**
@@ -27,6 +29,9 @@ public class RobotMap {
     public static TalonSRX drivetrainRightFollow1;
     public static TalonSRX drivetrainLeftFollow2;
     public static TalonSRX drivetrainRightFollow2;
+
+    public static List<TalonSRX> drivetrainLeftFollowers;
+    public static List<TalonSRX> drivetrainRightFollowers;
     
     public RobotMap() {
 		drivetrainLeftLead = new TalonSRX(0);
@@ -37,5 +42,13 @@ public class RobotMap {
 		drivetrainRightFollow1 = new TalonSRX(3);		
 		drivetrainLeftFollow2 = new TalonSRX(2);
 		drivetrainRightFollow2 = new TalonSRX(3);		
+		
+		drivetrainLeftFollowers.add(drivetrainLeftFollow0);
+		drivetrainLeftFollowers.add(drivetrainLeftFollow1);
+		drivetrainLeftFollowers.add(drivetrainLeftFollow2);
+		
+		drivetrainRightFollowers.add(drivetrainRightFollow0);
+		drivetrainRightFollowers.add(drivetrainRightFollow1);
+		drivetrainRightFollowers.add(drivetrainRightFollow2);
 	}
 }
