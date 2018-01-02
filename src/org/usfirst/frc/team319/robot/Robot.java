@@ -8,9 +8,6 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import java.util.List;
-import static java.util.Arrays.asList;
-
 import org.usfirst.frc.team319.oi.OI;
 import org.usfirst.frc.team319.robot.commands.DefaultAutoCommand;
 import org.usfirst.frc.team319.robot.subsystems.Drivetrain;
@@ -25,6 +22,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	
 	public static final Drivetrain drivetrain = new Drivetrain(RobotMap.drivetrainLeftLead, RobotMap.drivetrainRightLead, RobotMap.drivetrainLeftFollowers, RobotMap.drivetrainRightFollowers);
 	public static OI oi;
 
