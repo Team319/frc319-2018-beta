@@ -47,6 +47,14 @@ public class BobTalonSRX extends TalonSRX {
 		return super.configNominalOutputReverse(percentOut, DEFAULT_TIMEOUT_MS);
 	}
 	
+	public ErrorCode configPeakOutputForward(double percentOut) {
+		return super.configPeakOutputForward(percentOut, DEFAULT_TIMEOUT_MS);
+	}
+	
+	public ErrorCode configPeakOutputReverse(double percentOut) {
+		return super.configPeakOutputReverse(percentOut, DEFAULT_TIMEOUT_MS);
+	}
+	
 	public ErrorCode configOpenloopRamp(double secondsFromNeutralToFull) {
 		return super.configOpenloopRamp(secondsFromNeutralToFull, DEFAULT_TIMEOUT_MS);
 	}

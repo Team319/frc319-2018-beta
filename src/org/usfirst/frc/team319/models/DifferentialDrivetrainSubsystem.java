@@ -16,12 +16,26 @@ public class DifferentialDrivetrainSubsystem extends Subsystem {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 	
-	private BobTalonSRX _leftLead;
-	private BobTalonSRX _rightLead;
-	private List<BobTalonSRX> _leftFollowers;
-	private List<BobTalonSRX> _rightFollowers;
+	public BobTalonSRX leftLead;
+	public BobTalonSRX rightLead;
+	public List<BobTalonSRX> leftFollowers;
+	public List<BobTalonSRX> rightFollowers;
 	
 	private boolean _isHighGear;
+	
+	public DifferentialDrivetrainSubsystem(int leftLeadDeviceNumber, int rightLeadDeviceNumber, 
+			int[] leftFollowerDeviceNumbers, int[] rightfollowerDeviceNumbers) {
+		this.leftLead = new BobTalonSRX(leftLeadDeviceNumber);
+		this.rightLead = new BobTalonSRX(rightLeadDeviceNumber);
+		
+		for (int i : rightfollowerDeviceNumbers) {
+			this.rightFollowers.add(new BobTalonSRX(i));
+		}
+		
+		for (int i : leftFollowerDeviceNumbers) {
+			this.leftFollowers.add(new BobTalonSRX(i));
+		}
+	}
 	
 	/**
 	 * @param leftLead
@@ -30,17 +44,17 @@ public class DifferentialDrivetrainSubsystem extends Subsystem {
 	 * @param rightFollowers
 	 */
 	public DifferentialDrivetrainSubsystem(BobTalonSRX leftLead, BobTalonSRX rightLead, List<BobTalonSRX> leftFollowers, List<BobTalonSRX> rightFollowers) {
-		_leftLead = leftLead;
-		_rightLead = rightLead;
-		_leftFollowers = leftFollowers;
-		_rightFollowers = rightFollowers;
+		this.leftLead = leftLead;
+		this.rightLead = rightLead;
+		this.leftFollowers = leftFollowers;
+		this.rightFollowers = rightFollowers;
 		
-		for (BobTalonSRX BobTalonSRX : _rightFollowers) {
-			BobTalonSRX.follow(_rightLead);
+		for (BobTalonSRX BobTalonSRX : rightFollowers) {
+			BobTalonSRX.follow(rightLead);
 		}
 		
-		for (BobTalonSRX BobTalonSRX : _leftFollowers) {
-			BobTalonSRX.follow(_leftLead);
+		for (BobTalonSRX BobTalonSRX : leftFollowers) {
+			BobTalonSRX.follow(leftLead);
 		}
 	}
 
@@ -55,15 +69,15 @@ public class DifferentialDrivetrainSubsystem extends Subsystem {
 	
 	public ErrorCode setGains(SRXGains gains, int timeoutMs) {
 		ErrorCode errorCode = ErrorCode.OK;		
-		errorCode = _leftLead.setGains(gains, timeoutMs);		
-		errorCode = _rightLead.setGains(gains, timeoutMs);		
+		errorCode = leftLead.setGains(gains, timeoutMs);		
+		errorCode = rightLead.setGains(gains, timeoutMs);		
 		return errorCode;
 	}
 	
 	public ErrorCode setGains(SRXGains gains) {
 		ErrorCode errorCode = ErrorCode.OK;		
-		errorCode = _leftLead.setGains(gains);		
-		errorCode = _rightLead.setGains(gains);		
+		errorCode = leftLead.setGains(gains);		
+		errorCode = rightLead.setGains(gains);		
 		return errorCode;
 	}
 	
@@ -79,19 +93,19 @@ public class DifferentialDrivetrainSubsystem extends Subsystem {
 			neutralMode = NeutralMode.Brake;
 		}	
 
-		_leftLead.setNeutralMode(neutralMode);
-		_rightLead.setNeutralMode(neutralMode);
+		leftLead.setNeutralMode(neutralMode);
+		rightLead.setNeutralMode(neutralMode);
 		
-		for (BobTalonSRX BobTalonSRX : _leftFollowers) {
+		for (BobTalonSRX BobTalonSRX : leftFollowers) {
 			BobTalonSRX.setNeutralMode(neutralMode);
 		}
 		
-		for (BobTalonSRX BobTalonSRX : _rightFollowers) {
+		for (BobTalonSRX BobTalonSRX : rightFollowers) {
 			BobTalonSRX.setNeutralMode(neutralMode);
 		}
 		
-		_leftLead.set(driveSignal.getControlMode(), driveSignal.getLeft());
-		_rightLead.set(driveSignal.getControlMode(), driveSignal.getRight());
+		leftLead.set(driveSignal.getControlMode(), driveSignal.getLeft());
+		rightLead.set(driveSignal.getControlMode(), driveSignal.getRight());
 	}
 	
 	public boolean getHighGear() {
