@@ -3,13 +3,10 @@ package org.usfirst.frc.team319.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 
 import org.usfirst.frc.team319.robot.Robot;
-import org.usfirst.frc.team319.robot.RobotMap;
-import org.usfirst.frc.team319.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team319.util.BobDriveHelper;
 import org.usfirst.frc.team319.util.DriveSignal;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 /**
  *
@@ -37,8 +34,8 @@ public class BobDriveCommand extends Command {
 		boolean quickTurn = Robot.oi.driverController.getRightStickPressed();
 		boolean isHighGear = Robot.drivetrain.getHighGear();
 		
-		DriveSignal driveSignal = helper.bobDrive(throttle, turn, quickTurn, isHighGear);
-		Robot.drivetrain.set(ControlMode.PercentOutput, driveSignal);		
+		DriveSignal driveSignal = helper.bobDrive(throttle, turn, quickTurn, isHighGear, ControlMode.PercentOutput);		
+		Robot.drivetrain.set(driveSignal);		
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

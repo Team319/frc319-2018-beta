@@ -12,8 +12,6 @@ import org.usfirst.frc.team319.oi.OI;
 import org.usfirst.frc.team319.robot.commands.DefaultAutoCommand;
 import org.usfirst.frc.team319.robot.subsystems.Drivetrain;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -23,7 +21,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
  */
 public class Robot extends IterativeRobot {
 	
-	public static final Drivetrain drivetrain = new Drivetrain(RobotMap.drivetrainLeftLead, RobotMap.drivetrainRightLead, RobotMap.drivetrainLeftFollowers, RobotMap.drivetrainRightFollowers);
+	public static final Drivetrain drivetrain = new Drivetrain();
 	public static OI oi;
 
 	Command autonomousCommand;
@@ -36,14 +34,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		
-		for (TalonSRX talonSRX : RobotMap.drivetrainLeftFollowers) {
-			talonSRX.follow(RobotMap.drivetrainLeftLead);
-		}
-		
-		for (TalonSRX talonSRX : RobotMap.drivetrainRightFollowers) {
-			talonSRX.follow(RobotMap.drivetrainRightLead);
-		}
 		
 		chooser.addDefault("Default Auto", new DefaultAutoCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());

@@ -1,5 +1,7 @@
 package org.usfirst.frc.team319.util;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 /**
  * Helper class to implement "Cheesy Drive". "Cheesy Drive" simply means that the "turning" stick controls the curvature
  * of the robot's path rather than its rate of heading change. This helps make the robot more controllable at high
@@ -34,7 +36,7 @@ public class BobDriveHelper {
     private double mNegInertiaAccumlator = 0.0;
 
     public DriveSignal bobDrive(double throttle, double wheel, boolean isQuickTurn,
-            boolean isHighGear) {
+            boolean isHighGear, ControlMode controlMode) {
 
         wheel = handleDeadband(wheel, kWheelDeadband);
         throttle = handleDeadband(throttle, kThrottleDeadband);
@@ -58,7 +60,7 @@ public class BobDriveHelper {
             wheel = Math.sin(Math.PI / 2.0 * wheelNonLinearity * wheel) / denominator;
         }
 
-        double leftPwm, rightPwm, overPower;
+        double leftSignal, rightSignal, overPower;
         double sensitivity;
 
         double angularPower;
@@ -117,24 +119,24 @@ public class BobDriveHelper {
             }
         }
 
-        rightPwm = leftPwm = linearPower;
-        leftPwm += angularPower;
-        rightPwm -= angularPower;
+        rightSignal = leftSignal = linearPower;
+        leftSignal += angularPower;
+        rightSignal -= angularPower;
 
-        if (leftPwm > 1.0) {
-            rightPwm -= overPower * (leftPwm - 1.0);
-            leftPwm = 1.0;
-        } else if (rightPwm > 1.0) {
-            leftPwm -= overPower * (rightPwm - 1.0);
-            rightPwm = 1.0;
-        } else if (leftPwm < -1.0) {
-            rightPwm += overPower * (-1.0 - leftPwm);
-            leftPwm = -1.0;
-        } else if (rightPwm < -1.0) {
-            leftPwm += overPower * (-1.0 - rightPwm);
-            rightPwm = -1.0;
+        if (leftSignal > 1.0) {
+            rightSignal -= overPower * (leftSignal - 1.0);
+            leftSignal = 1.0;
+        } else if (rightSignal > 1.0) {
+            leftSignal -= overPower * (rightSignal - 1.0);
+            rightSignal = 1.0;
+        } else if (leftSignal < -1.0) {
+            rightSignal += overPower * (-1.0 - leftSignal);
+            leftSignal = -1.0;
+        } else if (rightSignal < -1.0) {
+            leftSignal += overPower * (-1.0 - rightSignal);
+            rightSignal = -1.0;
         }
-        return new DriveSignal(leftPwm, rightPwm);
+        return new DriveSignal(leftSignal, rightSignal, controlMode);
     }
 
     public double handleDeadband(double val, double deadband) {

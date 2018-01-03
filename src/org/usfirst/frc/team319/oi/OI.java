@@ -1,8 +1,5 @@
 package org.usfirst.frc.team319.oi;
 
-import edu.wpi.first.wpilibj.buttons.Button;
-
-import org.usfirst.frc.team319.robot.commands.BobDriveCommand;
 import org.usfirst.frc.team319.robot.commands.ShiftDownCommand;
 import org.usfirst.frc.team319.robot.commands.ShiftUpCommand;
 
