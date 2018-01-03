@@ -6,7 +6,6 @@ import org.usfirst.frc.team319.util.DriveSignal;
 
 import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -17,10 +16,10 @@ public class DifferentialDrivetrainSubsystem extends Subsystem {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 	
-	private TalonSRX _leftLead;
-	private TalonSRX _rightLead;
-	private List<TalonSRX> _leftFollowers;
-	private List<TalonSRX> _rightFollowers;
+	private BobTalonSRX _leftLead;
+	private BobTalonSRX _rightLead;
+	private List<BobTalonSRX> _leftFollowers;
+	private List<BobTalonSRX> _rightFollowers;
 	
 	private boolean _isHighGear;
 	
@@ -30,18 +29,18 @@ public class DifferentialDrivetrainSubsystem extends Subsystem {
 	 * @param leftFollowers
 	 * @param rightFollowers
 	 */
-	public DifferentialDrivetrainSubsystem(TalonSRX leftLead, TalonSRX rightLead, List<TalonSRX> leftFollowers, List<TalonSRX> rightFollowers) {
+	public DifferentialDrivetrainSubsystem(BobTalonSRX leftLead, BobTalonSRX rightLead, List<BobTalonSRX> leftFollowers, List<BobTalonSRX> rightFollowers) {
 		_leftLead = leftLead;
 		_rightLead = rightLead;
 		_leftFollowers = leftFollowers;
 		_rightFollowers = rightFollowers;
 		
-		for (TalonSRX talonSRX : _rightFollowers) {
-			talonSRX.follow(_rightLead);
+		for (BobTalonSRX BobTalonSRX : _rightFollowers) {
+			BobTalonSRX.follow(_rightLead);
 		}
 		
-		for (TalonSRX talonSRX : _leftFollowers) {
-			talonSRX.follow(_leftLead);
+		for (BobTalonSRX BobTalonSRX : _leftFollowers) {
+			BobTalonSRX.follow(_leftLead);
 		}
 	}
 
@@ -54,21 +53,19 @@ public class DifferentialDrivetrainSubsystem extends Subsystem {
 	}
 	
 	
-	public ErrorCode setGains(Gains gains, int timeoutMs) {
-		ErrorCode errorCode = ErrorCode.OK;
-		errorCode = _leftLead.config_kP(gains.parameterSlot, gains.P, timeoutMs);
-		errorCode = _leftLead.config_kI(gains.parameterSlot, gains.I, timeoutMs);
-		errorCode = _leftLead.config_kD(gains.parameterSlot, gains.D, timeoutMs);
-		errorCode = _leftLead.config_kF(gains.parameterSlot, gains.F, timeoutMs);
-		
-		errorCode = _rightLead.config_kP(gains.parameterSlot, gains.P, timeoutMs);
-		errorCode = _rightLead.config_kI(gains.parameterSlot, gains.I, timeoutMs);
-		errorCode = _rightLead.config_kD(gains.parameterSlot, gains.D, timeoutMs);
-		errorCode = _rightLead.config_kF(gains.parameterSlot, gains.F, timeoutMs);
-		
+	public ErrorCode setGains(SRXGains gains, int timeoutMs) {
+		ErrorCode errorCode = ErrorCode.OK;		
+		errorCode = _leftLead.setGains(gains, timeoutMs);		
+		errorCode = _rightLead.setGains(gains, timeoutMs);		
 		return errorCode;
 	}
 	
+	public ErrorCode setGains(SRXGains gains) {
+		ErrorCode errorCode = ErrorCode.OK;		
+		errorCode = _leftLead.setGains(gains);		
+		errorCode = _rightLead.setGains(gains);		
+		return errorCode;
+	}
 	
 	/**
 	 * @param driveSignal
@@ -85,12 +82,12 @@ public class DifferentialDrivetrainSubsystem extends Subsystem {
 		_leftLead.setNeutralMode(neutralMode);
 		_rightLead.setNeutralMode(neutralMode);
 		
-		for (TalonSRX talonSRX : _leftFollowers) {
-			talonSRX.setNeutralMode(neutralMode);
+		for (BobTalonSRX BobTalonSRX : _leftFollowers) {
+			BobTalonSRX.setNeutralMode(neutralMode);
 		}
 		
-		for (TalonSRX talonSRX : _rightFollowers) {
-			talonSRX.setNeutralMode(neutralMode);
+		for (BobTalonSRX BobTalonSRX : _rightFollowers) {
+			BobTalonSRX.setNeutralMode(neutralMode);
 		}
 		
 		_leftLead.set(driveSignal.getControlMode(), driveSignal.getLeft());
