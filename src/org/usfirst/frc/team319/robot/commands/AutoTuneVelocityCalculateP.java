@@ -1,12 +1,8 @@
 package org.usfirst.frc.team319.robot.commands;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
-
 import org.usfirst.frc.team319.models.BobTalonSRX;
 import org.usfirst.frc.team319.util.BobCircularBuffer;
 import org.usfirst.frc.team319.util.HelperFunctions;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -18,7 +14,6 @@ public class AutoTuneVelocityCalculateP extends Command {
 	private int samplesRequired;
 	private int samplesGathered = 0;
 	private int paramterSlot = 0;
-	private double target = 0;
 	
 	private BobTalonSRX _talon;
 	private StringBuilder _sb;

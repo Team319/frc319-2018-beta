@@ -2,7 +2,6 @@ package org.usfirst.frc.team319.util;
 
 import java.util.List;
 
-import edu.wpi.first.wpilibj.CircularBuffer;
 
 /**
  * Contains basic functions that are used often.

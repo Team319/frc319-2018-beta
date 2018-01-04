@@ -4,8 +4,6 @@ package org.usfirst.frc.team319.robot.commands;
 import org.usfirst.frc.team319.models.BobTalonSRX;
 import org.usfirst.frc.team319.util.BobCircularBuffer;
 import org.usfirst.frc.team319.util.HelperFunctions;
-
-import edu.wpi.first.wpilibj.CircularBuffer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
